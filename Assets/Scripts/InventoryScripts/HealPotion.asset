@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e93a562864826d4a9f8b981adcdf9f2, type: 3}
+  m_Name: HealPotion
+  m_EditorClassIdentifier: 
+  itemTag: 1
+  itemName: Minor Healing Potion
+  itemImage: {fileID: 7837125926971959230, guid: 7daec11de7c674c4a99d794d9ce68a7d,
+    type: 3}
+  description: A one-time-use healing potion. Use it to heal 20 HP.
+  itemPrice: 50
+  itemSell: 25
+  incrementValue: 20
