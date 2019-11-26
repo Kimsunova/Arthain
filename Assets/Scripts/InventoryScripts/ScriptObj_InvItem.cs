@@ -11,8 +11,10 @@ public class ScriptObj_InvItem : ScriptableObject
     public Sprite itemImage; //an image of the item to display on the inventory menu
     public string description; //the description of the object for the shop or if player looks at the item
 
-    public int itemPrice;
-    public int itemSell;
-    public float incrementValue; //most items will be healing items or buffs of some sort
-
+    public int itemPrice = 0;
+    public int itemSell = 0;
+    public int healAmount = 0;
+    public int attackAmount = 0;
+    public int defenseAmount = 0;
+    public int otherValue = 0;
 }
