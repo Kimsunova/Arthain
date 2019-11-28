@@ -7,9 +7,16 @@ public class GameManager : MonoBehaviour {
 
     public float health, stamina;
     public int currency;
+    public static GameManager _instance;
+    public List<ScriptObj_InvItem> allSavedItems;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        _instance = this;
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

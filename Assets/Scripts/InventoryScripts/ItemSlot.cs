@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 [System.Serializable]
-public class ScriptObj_ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour
 {
     //public Sprite itemImage;
     public bool usedSpace = false;
     public ScriptObj_InvItem inventoryItem = null;
     public Image itemDisplay;
+    public delegate void BuyOrSellItem();
+    BuyOrSellItem bos;
 
-    public void Start()
+    public void Awake()
     {
+        bos = BuyItem;
         itemDisplay = this.GetComponent<Image>();
         if (inventoryItem != null)
             itemDisplay.sprite = inventoryItem.itemImage;
@@ -42,11 +45,13 @@ public class ScriptObj_ItemSlot : MonoBehaviour
         if (inventoryItem == null)
         {
             Debug.Log("No item listed there, nothing happens");
-            InventorySpace.instance.description.text = "";
+            InventoryPanel.instance.description.text = "";
             return;
         }
 
-        InventorySpace.instance.description.text = inventoryItem.description;
+       
+
+        InventoryPanel.instance.description.text = inventoryItem.description;
         //if the item is a weapon, equip a weapon
         if (inventoryItem.itemTag == ScriptObj_InvItem.Tag.Weapon)
         {
@@ -55,5 +60,45 @@ public class ScriptObj_ItemSlot : MonoBehaviour
 
         //need different functions for each tag, each one will have a different effect
         //depending on the tag
+    }
+
+    public void ShopPanel_Selling()
+    {
+        bos = SellItem;
+    }
+
+    public void ShopPanel_Buying()
+    {
+        bos = BuyItem;
+    }
+
+    public void ShopButton()
+    {
+        bos();
+    }
+
+    private void BuyItem()
+    {
+        if (inventoryItem != null)
+        {
+            print("buy");
+            GameManager._instance.currency -= inventoryItem.itemPrice;
+            InventoryPanel.instance.allItems.Add(inventoryItem);
+            InventoryPanel.instance.UpdateItems();
+            ShopPanel.instance.UpdateItems();
+        }
+    }
+
+    private void SellItem()
+    {
+        if (inventoryItem != null)
+        {
+            print("sell");
+            GameManager._instance.currency += inventoryItem.itemSell;
+            InventoryPanel.instance.allItems.Remove(inventoryItem);
+            inventoryItem = null;
+            InventoryPanel.instance.UpdateItems();
+            ShopPanel.instance.SwitchToSelling();
+        }
     }
 }
