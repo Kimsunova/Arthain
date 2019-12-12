@@ -13,11 +13,13 @@ public class ItemSlot : MonoBehaviour
     public Image itemDisplay;
     public delegate void BuyOrSellItem();
     BuyOrSellItem bos;
+    InventoryPanel inventoryPanel;
 
     public void Awake()
     {
         bos = BuyItem;
         itemDisplay = this.GetComponent<Image>();
+        inventoryPanel = InventoryPanel.instance;
         if (inventoryItem != null)
             itemDisplay.sprite = inventoryItem.itemImage;
         if (itemDisplay.sprite != null)
@@ -45,13 +47,11 @@ public class ItemSlot : MonoBehaviour
         if (inventoryItem == null)
         {
             Debug.Log("No item listed there, nothing happens");
-            InventoryPanel.instance.description.text = "";
+            inventoryPanel.description.text = "";
             return;
-        }
+        } 
 
-       
-
-        InventoryPanel.instance.description.text = inventoryItem.description;
+        inventoryPanel.description.text = inventoryItem.description;
         //if the item is a weapon, equip a weapon
         if (inventoryItem.itemTag == ScriptObj_InvItem.Tag.Weapon)
         {
@@ -83,8 +83,8 @@ public class ItemSlot : MonoBehaviour
         {
             print("buy");
             GameManager._instance.currency -= inventoryItem.itemPrice;
-            InventoryPanel.instance.allItems.Add(inventoryItem);
-            InventoryPanel.instance.UpdateItems();
+            inventoryPanel.allItems.Add(inventoryItem);
+            inventoryPanel.UpdateItems();
             ShopPanel.instance.UpdateItems();
         }
     }
@@ -95,9 +95,9 @@ public class ItemSlot : MonoBehaviour
         {
             print("sell");
             GameManager._instance.currency += inventoryItem.itemSell;
-            InventoryPanel.instance.allItems.Remove(inventoryItem);
+            inventoryPanel.allItems.Remove(inventoryItem);
             inventoryItem = null;
-            InventoryPanel.instance.UpdateItems();
+            inventoryPanel.UpdateItems();
             ShopPanel.instance.SwitchToSelling();
         }
     }
