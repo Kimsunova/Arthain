@@ -15,11 +15,17 @@ public class ItemSlot : MonoBehaviour
     BuyOrSellItem bos;
     InventoryPanel inventoryPanel;
 
+    private void Start()
+    {
+        inventoryPanel = InventoryPanel.instance;
+        print(inventoryPanel);
+    }
+
     public void Awake()
     {
         bos = BuyItem;
         itemDisplay = this.GetComponent<Image>();
-        inventoryPanel = InventoryPanel.instance;
+
         if (inventoryItem != null)
             itemDisplay.sprite = inventoryItem.itemImage;
         if (itemDisplay.sprite != null)
