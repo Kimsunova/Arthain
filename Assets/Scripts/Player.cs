@@ -77,9 +77,8 @@ public class Player : MonoBehaviour {
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
-            myRigidBody.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-            //Vector2 jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
-            //myRigidBody.velocity += jumpVelocityToAdd;
+            Vector2 jumpVelocityToAdd = new Vector2(0f, jumpSpeed);
+            myRigidBody.velocity += jumpVelocityToAdd;
         }
     }
 

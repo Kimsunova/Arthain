@@ -18,6 +18,7 @@ public class ItemSlot : MonoBehaviour
     private void Start()
     {
         inventoryPanel = InventoryPanel.instance;
+        print(inventoryPanel);
     }
 
     public void Awake()
