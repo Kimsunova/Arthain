@@ -1,2 +1,0 @@
-# Arthain
-SpectralStudios: Project Arthain
