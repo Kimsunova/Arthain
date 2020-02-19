@@ -19,4 +19,7 @@ MonoBehaviour:
   description: A one-time-use healing potion. Use it to heal 20 HP.
   itemPrice: 50
   itemSell: 25
-  incrementValue: 20
+  healAmount: 0
+  attackAmount: 0
+  defenseAmount: 0
+  otherValue: 0

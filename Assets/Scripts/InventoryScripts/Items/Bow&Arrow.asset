@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e93a562864826d4a9f8b981adcdf9f2, type: 3}
-  m_Name: MagicSword
+  m_Name: Bow&Arrow
   m_EditorClassIdentifier: 
-  itemTag: 2
-  itemName: Magical Sword
-  itemImage: {fileID: -1123311197673889570, guid: 7daec11de7c674c4a99d794d9ce68a7d,
+  itemTag: 0
+  itemName: Iron Bow
+  itemImage: {fileID: -4243810309362162239, guid: 7daec11de7c674c4a99d794d9ce68a7d,
     type: 3}
-  description: A miraculous sword that buffs your attacks by +5 during the next combat.
-  itemPrice: 60
-  itemSell: 30
-  incrementValue: 5
+  description: An iron bow & arrow. Standard equipment for a squire
+  itemPrice: 25
+  itemSell: 15
+  healAmount: 0
+  attackAmount: 0
+  defenseAmount: 0
+  otherValue: 0
