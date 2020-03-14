@@ -19,12 +19,6 @@ public class GameManager_ParallaxTesting : MonoBehaviour
         cam = Camera.main.transform;
         previousCameraPosition = cam.position;
         backgroundsLength = backgrounds.Length;
-        //parallaxScales = new float[backgrounds.Length];
-
-        //for (int i = 0; i < backgrounds.Length; i++)
-        //{
-        //    parallaxScales[i] = -backgrounds[i].position.z;
-        //}
 
     }
 

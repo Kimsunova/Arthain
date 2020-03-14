@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
 
-    bool isGrounded;
+    bool isGrounded = true, isJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+            isJumping = true;
     }
 
     private void FixedUpdate()
@@ -58,8 +59,9 @@ public class PlayerController : MonoBehaviour
             //move right anim
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isJumping)
         {
+            isJumping = false;
             rb.velocity = new Vector2(rb.velocity.x, vertSpeed);
             //jump anim
         }
