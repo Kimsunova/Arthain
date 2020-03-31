@@ -44,12 +44,7 @@ public class Player : MonoBehaviour
     Animator playerAnimator;
     BoxCollider2D playerBodyCollider;
     CircleCollider2D playerFeetCollider;
-    SpriteRenderer spriteRenderer;
-    //PolygonCollider2D attackHitBox;
-
-
-
-
+    PolygonCollider2D attackHitBox;
 
     void Start()
     {
@@ -57,15 +52,14 @@ public class Player : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerBodyCollider = GetComponent<BoxCollider2D>();
         playerFeetCollider = GetComponent<CircleCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = PlayerState.walk;
-        //attackHitBox = GetComponentInChildren<PolygonCollider2D>();
+        attackHitBox = GetComponentInChildren<PolygonCollider2D>();
 
     }
 
     private void FixedUpdate()
     {
-        
+
 
         //new
         if (CrossPlatformInputManager.GetButtonDown("Fire1") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
@@ -89,7 +83,7 @@ public class Player : MonoBehaviour
 
         DropDown();
 
-        //FlipSprite();//flipsprite is interfereing with the new rope system script test so just commenting out temporarily
+        FlipSprite();//flipsprite is interfereing with the new rope system script test so just commenting out temporarily
 
         Jump();
         //Attack();
@@ -165,7 +159,7 @@ public class Player : MonoBehaviour
         //    playerIsFalling = true;//so always on falling animation if grappling (may need to chagne all this around later ifthere is a grappling animation)
         //}
 
-        if(currentState == PlayerState.grappling)
+        if (currentState == PlayerState.grappling)
         {
             playFallingAnimation = true; //always on falling animation if grappling
         }
@@ -233,8 +227,7 @@ public class Player : MonoBehaviour
         bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon; //if player is moving because epsilon is the smallest float
         if (playerHasHorizontalSpeed)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-            //transform.localScale = new Vector2(Mathf.Sign(playerRigidBody.velocity.x), 1f);
+            transform.localScale = new Vector2(Mathf.Sign(playerRigidBody.velocity.x) * 5f, 5f);
         }
     }
 
