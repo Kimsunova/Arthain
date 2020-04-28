@@ -53,24 +53,20 @@ public class Player : MonoBehaviour
         playerBodyCollider = GetComponent<BoxCollider2D>();
         playerFeetCollider = GetComponent<CircleCollider2D>();
         currentState = PlayerState.walk;
-        attackHitBox = GetComponentInChildren<PolygonCollider2D>();
+        //attackHitBox = GetComponentInChildren<PolygonCollider2D>();
 
     }
 
     private void FixedUpdate()
     {
-
-
-        //new
-        if (CrossPlatformInputManager.GetButtonDown("Fire1") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
-        {
-            StartCoroutine(AttackCo());
-        }
-        else if (currentState == PlayerState.walk || currentState == PlayerState.idle || currentState == PlayerState.falling)//need falling? should be able to move while falling?
+        if (currentState == PlayerState.walk || currentState == PlayerState.idle || currentState == PlayerState.falling)//need falling? should be able to move while falling?
         {
             //UpdateAnimationAndMove();
             Run();
         }
+        Jump();
+        //Attack();
+        Falling();//this still triggers when dead?, like if you die when in the falling animation (see falling into spike pit)
     }
 
     void Update()
@@ -81,13 +77,16 @@ public class Player : MonoBehaviour
             return;//this isn't working and player can still move around when state is dead
         }
 
+        //new
+        if (CrossPlatformInputManager.GetButtonDown("Fire1") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
+        {
+            StartCoroutine(AttackCo());
+        }
+
         DropDown();
 
         FlipSprite();//flipsprite is interfereing with the new rope system script test so just commenting out temporarily
 
-        Jump();
-        //Attack();
-        Falling();//this still triggers when dead?, like if you die when in the falling animation (see falling into spike pit)
         HazardDeath();
 
     }

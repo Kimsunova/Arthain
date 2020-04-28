@@ -71,7 +71,7 @@ public class Knockback : MonoBehaviour
                     {
                         enemy.currentState = EnemyState.stagger;
                     }
-                    enemy.Knock(hit, knockTime, damage);//so enemy can be hurt even if staggered
+ //                   enemy.Knock(hit, knockTime, damage);//so enemy can be hurt even if staggered
                 }
 
                 if (otherIsPlayer)

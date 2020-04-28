@@ -13,9 +13,8 @@ public enum EnemyState
 
 public class Enemy : MonoBehaviour
 {
-
     public EnemyState currentState;
-    public FloatValue maxHealth;
+    public float maxHealth;
     public float health;
     public string enemyName;
     public int baseAttack;
@@ -26,12 +25,13 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        myAnimator = GetComponent<Animator>();//is this necessary? is it getting the same one that is gotten in radiusawakenedenemy start()?
+        if (GetComponent<Animator>() != null)
+            myAnimator = GetComponent<Animator>();//is this necessary? is it getting the same one that is gotten in radiusawakenedenemy start()?
     }
 
     private void Awake()
     {
-        health = maxHealth.initialValue;
+        health = maxHealth;
     }
 
     private void TakeDamage(float damage)
@@ -48,9 +48,9 @@ public class Enemy : MonoBehaviour
 
     private void DeathEffect()
     {
-        myAnimator.SetBool("IsDead", true);//this is not always working
-        
-        Destroy(this.gameObject, 4f);//this isntead of above disable?
+        // myAnimator.SetBool("IsDead", true);//this is not always working
+
+        Destroy(this.gameObject);//, 4f);//this isntead of above disable?
         //yield return new WaitForSeconds(0);//should it wait at all? is this just making sure it does stagger first and then death animation?
         //this.gameObject.SetActive(false, 1f);
         //uncomment below for adding a death particle effect if desired
@@ -61,7 +61,27 @@ public class Enemy : MonoBehaviour
         //}
     }
 
-    public void Knock(Rigidbody2D myRigidbody, float knockTime, float damage)
+    public virtual void Attacked(float damage)
+    {
+        print("OW");
+        if (currentState != EnemyState.stagger && currentState != EnemyState.dead)
+        {
+            TakeDamage(damage);
+            StartCoroutine(TempDamageSignal());
+            //fill in more of this over time
+        }
+    }
+
+    IEnumerator TempDamageSignal()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        currentState = EnemyState.stagger;
+        yield return new WaitForSeconds(.5f);
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        currentState = EnemyState.idle;
+    }
+
+    /*public void Knock(Rigidbody2D myRigidbody, float knockTime, float damage)
     {
         TakeDamage(damage);//take damage before knockco in case this hit kills target so goes straight to death animation and not stagger first
 
@@ -70,7 +90,7 @@ public class Enemy : MonoBehaviour
         
         myAnimator.SetBool("Stagger", true);//does this do anything?
         StartCoroutine(KnockCo(myRigidbody, knockTime));
-    }
+    }*/
 
     private IEnumerator KnockCo(Rigidbody2D myRigidbody, float knockTime)
     {
@@ -79,7 +99,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(knockTime);
             myRigidbody.velocity = Vector2.zero;
             //myRigidbody.velocity = Vector2.zero;
-            myAnimator.SetBool("Stagger", false);
+            //myAnimator.SetBool("Stagger", false);
             currentState = EnemyState.idle;//set it back to idle after doing knockback animation and time so it can keep walking towards target in radiusawakened enemy
 
         }
